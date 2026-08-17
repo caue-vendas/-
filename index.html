@@ -1,1 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Recompensas - Resgate seu Dinheiro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #050b14;
+            background-image: radial-gradient(circle at 50% 10%, #0f223d 0%, #050b14 70%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Ícone de Dinheiro Chamativo */
+        .money-icon-container {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .money-logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+            font-size: 32px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+            50% { box-shadow: 0 0 35px rgba(0, 242, 254, 0.8); }
+            100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        }
+
+        .area-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #00f2fe;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Barra de Progresso */
+        .progress-container {
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #8ca1c1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .progress-info .percentage {
+            color: #00f2fe;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background-color: #0d1b2a;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* Card Principal */
+        .card {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(16, 30, 54, 0.85) 0%, rgba(9, 18, 33, 0.95) 100%);
+            border: 1px solid #1f3a5f;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title span {
+            color: #00f2fe;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #9fb3c8;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #8ca1c1;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            background-color: #070e18;
+            border: 1px solid #1f3a5f;
+            border-radius: 14px;
+            padding: 15px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .input-field:focus {
+            border-color: #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        .input-field::placeholder {
+            color: #3b5270;
+        }
+
+        /* Grade de Opções de Dinheiro */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background-color: #070e18;
+            border: 1px solid #1f3a5f;
+            border-radius: 14px;
+            padding: 15px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .option-btn:hover {
+            border-color: #00f2fe;
+            background-color: #0d1a2d;
+        }
+
+        .option-btn.selected {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2) 0%, rgba(79, 172, 254, 0.1) 100%);
+            border-color: #00f2fe;
+            color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        /* Botão Principal */
+        .btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #050b14;
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+            transition: filter 0.2s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-main:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn-main:active {
+            transform: scale(0.98);
+        }
+
+        /* Instruções e Passos */
+        .instructions-box {
+            background-color: #070e18;
+            border: 1px solid #1f3a5f;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #c0d2e8;
+            margin-bottom: 20px;
+        }
+
+        .instructions-box ol {
+            padding-left: 18px;
+            margin-top: 8px;
+        }
+
+        .instructions-box li {
+            margin-bottom: 8px;
+        }
+
+        .instructions-box a {
+            color: #00f2fe;
+            word-break: break-all;
+            font-weight: 600;
+        }
+
+        /* Upload de Print Customizado */
+        .file-upload-container {
+            margin-bottom: 20px;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #070e18;
+            border: 2px dashed #1f3a5f;
+            border-radius: 14px;
+            padding: 16px;
+            color: #8ca1c1;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .file-upload-label:hover {
+            border-color: #00f2fe;
+            color: #00f2fe;
+            background-color: #0d1a2d;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Mensagem de Sucesso (Etapa 4) */
+        .success-box {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .success-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #00f2fe;
+            margin-bottom: 10px;
+        }
+
+        .success-desc {
+            font-size: 13px;
+            color: #9fb3c8;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Ícone e Subtítulo -->
+    <div class="money-icon-container">
+        <div class="money-logo">💵</div>
+    </div>
+    <div class="area-title">Central de Recompensas</div>
+
+    <!-- Barra de Progresso (4 Etapas) -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span id="stepText">Etapa 1 de 4</span>
+            <span id="percentageText" class="percentage">25%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div id="progressBarFill" class="progress-bar-fill" style="width: 25%;"></div>
+        </div>
+    </div>
+
+    <!-- Card de Conteúdo -->
+    <div class="card">
+        
+        <!-- ETAPA 1: Identificação -->
+        <div id="step1">
+            <div class="card-title">Resgate seu <span>Dinheiro</span></div>
+            <div class="card-desc">Faça missões e tarefas diretamente pelo seu nome e ganhe recompensas em dinheiro[span_0](start_span)[span_0](end_span).</div>
+            
+            <label class="input-label" for="identificacao">Seu nome ou chave Pix</label>
+            <input type="text" id="identificacao" class="input-field" placeholder="ex: joaosilva@email.com[span_1](start_span)"[span_1](end_span)>
+            
+            <button class="btn-main" onclick="avancarEtapa(2)">Continuar &gt;</button>
+        </div>
+
+        <!-- ETAPA 2: Valor -->
+        <div id="step2" class="hidden">
+            <div class="card-title">Escolha o <span>Valor</span></div>
+            <div class="card-desc">Escolha a quantidade de dinheiro que deseja resgatar[span_2](start_span)[span_2](end_span).</div>
+            
+            <div class="options-grid">
+                <div class="option-btn selected" onclick="selecionarValor(this, 'R$ 50,00')">R$ 50,00[span_3](start_span)[span_3](end_span)</div>
+                <div class="option-btn" onclick="selecionarValor(this, 'R$ 100,00')">R$ 100,00[span_4](start_span)[span_4](end_span)</div>
+                <div class="option-btn" onclick="selecionarValor(this, 'R$ 250,00')">R$ 250,00[span_5](start_span)[span_5](end_span)</div>
+                <div class="option-btn" onclick="selecionarValor(this, 'R$ 500,00')">R$ 500,00[span_6](start_span)[span_6](end_span)</div>
+                <div class="option-btn" onclick="selecionarValor(this, 'R$ 1.000,00')" style="grid-column: span 2;">R$ 1.000,00[span_7](start_span)[span_7](end_span)</div>
+            </div>
+            
+            <button class="btn-main" onclick="avancarEtapa(3)">Continuar &gt;</button>
+        </div>
+
+        <!-- ETAPA 3: Passos e Print -->
+        <div id="step3" class="hidden">
+            <div class="card-title">Quase lá, <span id="userNameDisplay">[Nome]</span>!</div>
+            <div class="instructions-box">
+                Passo a passo para estar recebendo seu resgate de <span id="selectedAmountDisplay" style="color: #00f2fe; font-weight: 700;">R$ 50,00</span> em dinheiro[span_8](start_span)[span_8](end_span)!
+                <ol>
+                    <li>Baixar o TikTok Lite (Play Store)[span_9](start_span)[span_9](end_span)</li>
+                    <li>Crie uma conta[span_10](start_span)[span_10](end_span)</li>
+                    <li>Clique no link abaixo e clique em baixar:<br>
+                        <a href="https://www.tiktok.com/d/1/ZS9kmASvThAmc-6ZZK2/" target="_blank">Acessar Link Oficial</a>[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span)
+                    </li>
+                    <li>Vai aparecer que você indicou alguém (recomendado você tirar print e anotar seus dados)[span_13](start_span)[span_13](end_span)</li>
+                </ol>
+            </div>
+            
+            <div class="file-upload-container">
+                <label for="printFile" class="file-upload-label" id="fileLabel">
+                    📷 Envie sua print aqui[span_14](start_span)[span_14](end_span)!
+                </label>
+                <input type="file" id="printFile" accept="image/*" onchange="atualizarNomeArquivo()">
+            </div>
+
+            <button class="btn-main" onclick="avancarEtapa(4)">Confirmar[span_15](start_span)[span_15](end_span)</button>
+        </div>
+
+        <!-- ETAPA 4: Confirmado -->
+        <div id="step4" class="hidden">
+            <div class="success-box">
+                <div class="success-icon">🎉</div>
+                <div class="success-title">Seu dinheiro está a caminho[span_16](start_span)[span_16](end_span)!</div>
+                <div class="success-desc">
+                    Acabamos de colocar para envio via Pix o valor de <span id="finalAmountText" style="color: #00f2fe; font-weight: 700;">R$ 50,00</span> e ele pode cair em até 48 horas[span_17](start_span)[span_17](end_span)!<br><br>
+                    <strong>Basta esperar!</strong>[span_18](start_span)[span_18](end_span)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let userIdentificacao = "";
+    let valorSelecionado = "R$ 50,00";
+
+    function selecionarValor(element, valor) {
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        element.classList.add('selected');
+        valorSelecionado = valor;
+    }
+
+    function atualizarNomeArquivo() {
+        const input = document.getElementById('printFile');
+        const label = document.getElementById('fileLabel');
+        if (input.files && input.files.length > 0) {
+            label.innerText = "✅ Print anexado: " + input.files[0].name;
+            label.style.borderColor = "#00f2fe";
+            label.style.color = "#00f2fe";
+        }
+    }
+
+    function avancarEtapa(etapa) {
+        if (etapa === 2) {
+            userIdentificacao = document.getElementById('identificacao').value.trim();
+            if (!userIdentificacao) {
+                alert('Por favor, digite seu nome ou chave Pix!');
+                return;
+            }
+        }
+        
+        if (etapa === 3) {
+            document.getElementById('userNameDisplay').innerText = userIdentificacao;
+            document.getElementById('selectedAmountDisplay').innerText = valorSelecionado;
+        }
+
+        if (etapa === 4) {
+            const printInput = document.getElementById('printFile');
+            if (!printInput.files || printInput.files.length === 0) {
+                alert('Por favor, envie o print da comprovação para continuar!');
+                return;
+            }
+            document.getElementById('finalAmountText').innerText = valorSelecionado;
+        }
+
+        // Esconde todas as etapas
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step4').classList.add('hidden');
+
+        // Mostra a etapa alvo
+        document.getElementById('step' + etapa).classList.remove('hidden');
+
+        // Atualiza a barra de progresso (4 etapas)
+        let percentuais = { 1: "25%", 2: "50%", 3: "75%", 4: "100%" };
+        let perc = percentuais[etapa];
+        
+        document.getElementById('stepText').innerText = `Etapa ${etapa} de 4`;
+        document.getElementById('percentageText').innerText = perc;
+        document.getElementById('progressBarFill').style.width = perc;
+    }
+</script>
+
+</body>
+</html>
